@@ -20,7 +20,7 @@ const Posts = () => {
           .reverse()
           .slice(0, 5)
           .map((item) => {
-            return <Post key={item.id} id={item.id} />
+            return <Post key={item.id} id={item.id} />;
           })}
     </div>
   );

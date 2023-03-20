@@ -14,7 +14,7 @@ const Post = ({ id }: IPostProps) => {
     postId: id,
   });
 
-  const setOpenedPostHandler = () => {   
+  const setOpenedPostHandler = () => {
     setOpeningPostId(id);
     if (data) setOpenedPost(data);
   };
@@ -25,21 +25,18 @@ const Post = ({ id }: IPostProps) => {
 
   if (data)
     return (
-        <Link to={`/post/${id}`} onClick={setOpenedPostHandler}>
-          <div
-            className="my-3 shadow-sm bg-slate-400 p-4 flex flex-col rounded"
-          >
-            <h3 className="font-bold text-xl">{data.title}</h3>
-            <p>{data.body}</p>
-            <div className="font-bold mt-4">
-              comments: {data.comments ? data?.comments.length : 0}
-            </div>
+      <Link to={`/post/${id}`} onClick={setOpenedPostHandler}>
+        <div className="my-3 shadow-sm bg-slate-400 p-4 flex flex-col rounded">
+          <h3 className="font-bold text-xl">{data.title}</h3>
+          <p>{data.body}</p>
+          <div className="font-bold mt-4">
+            comments: {data.comments ? data?.comments.length : 0}
           </div>
-        </Link>
-
+        </div>
+      </Link>
     );
 
-  return <></>
+  return <></>;
 };
 
-export default Post
+export default Post;

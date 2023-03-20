@@ -10,15 +10,15 @@ interface IPostProps {
   id: number;
 }
 
-const Post = ({ id }: IPostProps) => {  
+const Post = ({ id }: IPostProps) => {
   const { isLoading, isError, data } = useGetCommentsToPostQuery({
     postId: id,
   });
 
   useEffect(() => {
     console.log(data);
-  }, [data])
-  
+  }, [data]);
+
   if (isLoading) return <CircularProgress />;
   if (isError)
     return <Alert severity="error">error has occured fetching data</Alert>;
@@ -30,9 +30,7 @@ const Post = ({ id }: IPostProps) => {
           <Button variant="contained">back to posts list</Button>
         </Link>
 
-        <div
-          className="my-3 shadow-sm bg-slate-400 p-4 flex flex-col rounded"
-        >
+        <div className="my-3 shadow-sm bg-slate-400 p-4 flex flex-col rounded">
           <h3 className="font-bold text-xl">{data.title}</h3>
           <p>{data.body}</p>
           <div className="font-bold mt-4">
@@ -41,9 +39,13 @@ const Post = ({ id }: IPostProps) => {
         </div>
 
         <div>
-          {data.comments?.length ? <h4 className="my-4 font-bold ml-8">comments:</h4> : <h4 className="my-4 font-bold ml-8">no comments for this post</h4>}
-          {data.comments?.map(comment => (
-            <Comment key={comment.id} comment={comment}/>
+          {data.comments?.length ? (
+            <h4 className="my-4 font-bold ml-8">comments:</h4>
+          ) : (
+            <h4 className="my-4 font-bold ml-8">no comments for this post</h4>
+          )}
+          {data.comments?.map((comment) => (
+            <Comment key={comment.id} comment={comment} />
           ))}
         </div>
       </>
