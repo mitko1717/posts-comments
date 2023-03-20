@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IPost } from "./../../models/interfaces";
+import { IComment, IPost } from "./../../models/interfaces";
 
 interface IQueries {
   postId: number;
@@ -12,11 +12,18 @@ export const dataApi = createApi({
   }),
   refetchOnFocus: true,
   endpoints: (build) => ({
-    getPosts: build.query<IPost[], IQueries>({
+    getPosts: build.query<IPost[], "">({
       query: () => ({
         url: `posts`,
       }),
       transformResponse: (response: IPost[]) => response,
+    }),
+
+    getAllComments: build.query<IComment[], "">({
+      query: () => ({
+        url: `comments`,
+      }),
+      transformResponse: (response: IComment[]) => response,
     }),
 
     getCommentsToPost: build.query<IPost[], IQueries>({
@@ -28,9 +35,8 @@ export const dataApi = createApi({
         },
       }),
       transformResponse: (response: IPost[]) => response,
-    }),
-    
+    }),   
   }),
 });
 
-export const { useGetPostsQuery, useGetCommentsToPostQuery } = dataApi;
+export const { useGetPostsQuery, useGetCommentsToPostQuery, useGetAllCommentsQuery } = dataApi;

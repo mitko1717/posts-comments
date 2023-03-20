@@ -1,12 +1,14 @@
-import { IPost } from './../../models/interfaces';
+import { IPost, IPostWithComments } from './../../models/interfaces';
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface IDataState {
   posts: IPost[]
+  openedPost: IPostWithComments | null
 }
 
 const initialState: IDataState = {
-  posts: []
+  posts: [],
+  openedPost: null
 };
 
 export const dataSlice = createSlice({
@@ -16,6 +18,9 @@ export const dataSlice = createSlice({
     setPosts(state, action: PayloadAction<IPost[]>) {
       state.posts = action.payload;
     },
+    setOpenedPost(state, action: PayloadAction<IPostWithComments>) {
+      state.openedPost = action.payload
+    }
   },
 });
 
