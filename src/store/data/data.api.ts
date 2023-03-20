@@ -31,12 +31,16 @@ export const dataApi = createApi({
         url: `posts`,
         params: {
           _: postId,
-          _embed: 'comments',
+          _embed: "comments",
         },
       }),
       transformResponse: (response: IPost[]) => response,
-    }),   
+    }),
   }),
 });
 
-export const { useGetPostsQuery, useGetCommentsToPostQuery, useGetAllCommentsQuery } = dataApi;
+export const {
+  useGetPostsQuery,
+  useGetCommentsToPostQuery,
+  useGetAllCommentsQuery,
+} = dataApi;
