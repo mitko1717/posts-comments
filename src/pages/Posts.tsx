@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react";
-import {
-  useGetPostsQuery,
-  useGetAllCommentsQuery,
-} from "../store/data/data.api";
-import { useAppSelector } from "../hooks/redux";
+import { useEffect } from "react";
+import { useGetPostsQuery } from "../store/data/data.api";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
-import Post from "./Post";
+import Post from "../components/Post";
+// import { Link } from "react-router-dom";
+import { useActions } from "../hooks/actions";
 
 const Posts = () => {
   const { isLoading, isError, data } = useGetPostsQuery("");
-  const allComments = useGetAllCommentsQuery("").data;
 
   if (isLoading) return <CircularProgress />;
   if (isError)
@@ -19,13 +16,12 @@ const Posts = () => {
   return (
     <div className="w-[80%] flex mx-auto flex-col overflow-y-auto h-full">
       {data &&
-        data.map((item) => {
-          let commentsToPost = allComments
-            ? allComments.filter((com) => com.postId === item.id)
-            : [];
-
-          return <Post key={item.id} item={item} comments={commentsToPost} />;
-        })}
+        [...data]
+          .reverse()
+          .slice(0, 5)
+          .map((item) => {
+            return <Post key={item.id} id={item.id} />
+          })}
     </div>
   );
 };

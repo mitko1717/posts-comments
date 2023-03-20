@@ -8,7 +8,7 @@ export interface IPostWithComments {
   id: number;
   title: string;
   body: string;
-  comments: IComment[] | null;
+  comments: IComment[];
 }
 
 export interface IComment {

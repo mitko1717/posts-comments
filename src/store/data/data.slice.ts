@@ -4,11 +4,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface IDataState {
   posts: IPost[];
   openedPost: IPostWithComments | null;
+  openingPostId: number;
 }
 
 const initialState: IDataState = {
   posts: [],
   openedPost: null,
+  openingPostId: 2,
 };
 
 export const dataSlice = createSlice({
@@ -20,6 +22,9 @@ export const dataSlice = createSlice({
     },
     setOpenedPost(state, action: PayloadAction<IPostWithComments>) {
       state.openedPost = action.payload;
+    },
+    setOpeningPostId(state, action: PayloadAction<number>) {
+      state.openingPostId = action.payload;
     },
   },
 });

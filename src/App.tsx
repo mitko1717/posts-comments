@@ -1,14 +1,16 @@
 import { Routes, Route } from "react-router-dom";
 import Posts from "./pages/Posts";
-import Post from "./pages/Post";
+import Post from "./pages/PostPage";
+import { useAppSelector } from "./hooks/redux";
 
 function App() {
+  const { openingPostId } = useAppSelector((state) => state.data);
+
   return (
     <div className="w-full h-[100vh] bg-slate-700 p-4">
-      {/* <Posts /> */}
       <Routes>
         <Route path="/" element={<Posts />} />
-        {/* <Route path="/:post" element={<Post />} /> */}
+        <Route path="/post/:id" element={<Post id={openingPostId} />}  />
       </Routes>
     </div>
   );
