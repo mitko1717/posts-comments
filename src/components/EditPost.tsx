@@ -1,19 +1,19 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState, SetStateAction, Dispatch } from "react";
 import Button from "@mui/material/Button/";
 import TextField from "@mui/material/TextField";
 import { useEditPostMutation } from "../store/data/data.api";
 
 interface IEditPostProps {
   id: number;
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const EditPost = ({ id }: IEditPostProps) => {
+const EditPost = ({ id, setIsModalOpen }: IEditPostProps) => {
   const [editPost, response] = useEditPostMutation();
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
     e.preventDefault();
     editPost({ title, body, id })
       .unwrap()
@@ -23,6 +23,7 @@ const EditPost = ({ id }: IEditPostProps) => {
       });
     setTitle("");
     setBody("");
+    setIsModalOpen(false)
   };
 
   const titleHandler = (

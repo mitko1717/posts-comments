@@ -50,7 +50,7 @@ const Post = ({ id }: IPostProps) => {
 
   if (data)
     return (
-      <Link to={`/post/${id}`} onClick={setOpenedPostHandler} className='relative'>
+      <div className="relative">
         {isModalOpen && (
           <ModalEdit
             isModalOpen={isModalOpen}
@@ -59,7 +59,7 @@ const Post = ({ id }: IPostProps) => {
           />
         )}
         <div className="my-3 shadow-sm bg-slate-400 p-4 flex flex-col rounded relative">
-          <div className="absolute top-1 right-1 flex gap-x-2">
+          <div className="absolute top-1 right-1 flex gap-x-2 z-10">
             <Button variant="outlined" startIcon={<Edit />} onClick={onEdit}>
               Edit
             </Button>
@@ -71,13 +71,15 @@ const Post = ({ id }: IPostProps) => {
               Delete
             </Button>
           </div>
-          <h3 className="font-bold text-xl">{data.title}</h3>
-          <p>{data.body}</p>
-          <div className="font-bold mt-4">
-            comments: {data.comments ? data?.comments.length : 0}
-          </div>
+          <Link to={`/post/${id}`} onClick={setOpenedPostHandler} className='relative mt-4'>
+            <h3 className="font-bold text-xl">{data.title}</h3>
+            <p>{data.body}</p>
+            <div className="font-bold mt-4">
+              comments: {data.comments ? data?.comments.length : 0}
+            </div>
+          </Link>
         </div>
-      </Link>
+      </div>
     );
 
   return <></>;

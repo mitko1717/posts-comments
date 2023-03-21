@@ -10,7 +10,7 @@ export const dataApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://blog-api-t6u0.onrender.com/",
   }),
-  tagTypes: ["Post"],
+  tagTypes: ["Post", "Put"],
   refetchOnFocus: true,
   endpoints: (build) => ({
     getPosts: build.query<IPost[], "">({
@@ -21,13 +21,13 @@ export const dataApi = createApi({
       transformResponse: (response: IPost[]) => response,
     }),
 
-    getAllComments: build.query<IComment[], "">({
-      query: () => ({
-        url: `comments`,
-      }),
-      providesTags: ["Post"],
-      transformResponse: (response: IComment[]) => response,
-    }),
+    // getAllComments: build.query<IComment[], "">({
+    //   query: () => ({
+    //     url: `comments`,
+    //   }),
+    //   providesTags: ["Post"],
+    //   transformResponse: (response: IComment[]) => response,
+    // }),
 
     getCommentsToPost: build.query<IPostWithComments, IQueries>({
       query: ({ postId }) => ({
@@ -36,6 +36,7 @@ export const dataApi = createApi({
           _embed: "comments",
         },
       }),
+      providesTags: ["Put"],
       transformResponse: (response: IPostWithComments) => response,
     }),
 
@@ -79,7 +80,7 @@ export const dataApi = createApi({
         body: payload,
         credentials: "include",
       }),
-      invalidatesTags: ["Post"],
+      invalidatesTags: ["Put"],
     }),
   }),
 });
@@ -87,7 +88,7 @@ export const dataApi = createApi({
 export const {
   useGetPostsQuery,
   useGetCommentsToPostQuery,
-  useGetAllCommentsQuery,
+  // useGetAllCommentsQuery,
   useAddPostMutation,
   useAddCommentMutation,
   useDeletePostMutation,

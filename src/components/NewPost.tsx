@@ -34,7 +34,7 @@ const NewPost = () => {
 
   return (
     <form className="text-center mb-8" onSubmit={onSubmit}>
-      <h3 className="my-2 font-bold text-xl">edit post</h3>
+      <h3 className="my-2 font-bold text-xl">add post</h3>
 
       <div className="flex justify-center">
         <div className="p-2">
