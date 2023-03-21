@@ -4,7 +4,7 @@ import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
 import Comment from "../components/Comment";
 import Button from "@mui/material/Button";
-import { useEffect } from "react";
+import NewComment from "../components/NewComment";
 
 interface IPostProps {
   id: number;
@@ -15,20 +15,18 @@ const Post = ({ id }: IPostProps) => {
     postId: id,
   });
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   if (isLoading) return <CircularProgress />;
   if (isError)
     return <Alert severity="error">error has occured fetching data</Alert>;
 
   if (data)
     return (
-      <>
+      <div className="h-full overflow-y-auto">
         <Link to={`/`}>
           <Button variant="contained">back to posts list</Button>
         </Link>
+
+        <NewComment id={id}/>
 
         <div className="my-3 shadow-sm bg-slate-400 p-4 flex flex-col rounded">
           <h3 className="font-bold text-xl">{data.title}</h3>
@@ -48,7 +46,7 @@ const Post = ({ id }: IPostProps) => {
             <Comment key={comment.id} comment={comment} />
           ))}
         </div>
-      </>
+      </div>
     );
 
   return <></>;

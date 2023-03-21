@@ -5,6 +5,7 @@ import Alert from "@mui/material/Alert";
 import Post from "../components/Post";
 // import { Link } from "react-router-dom";
 import { useActions } from "../hooks/actions";
+import NewPost from "../components/NewPost";
 
 const Posts = () => {
   const { isLoading, isError, data } = useGetPostsQuery("");
@@ -14,7 +15,9 @@ const Posts = () => {
     return <Alert severity="error">error has occured fetching data</Alert>;
 
   return (
-    <div className="w-[80%] flex mx-auto flex-col overflow-y-auto h-full">
+    <>
+      <NewPost />
+      <div className="w-[80%] flex mx-auto flex-col overflow-y-auto h-full">
       {data &&
         [...data]
           .reverse()
@@ -22,7 +25,8 @@ const Posts = () => {
           .map((item) => {
             return <Post key={item.id} id={item.id} />;
           })}
-    </div>
+      </div>
+    </>
   );
 };
 
