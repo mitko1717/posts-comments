@@ -1,16 +1,21 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import Button from "@mui/material/Button/";
 import TextField from "@mui/material/TextField";
-import { useAddPostMutation } from "../store/data/data.api";
+import { useEditPostMutation } from "../store/data/data.api";
 
-const NewPost = () => {
-  const [addPost, response] = useAddPostMutation();
+interface IEditPostProps {
+  id: number;
+}
+
+const EditPost = ({ id }: IEditPostProps) => {
+  const [editPost, response] = useEditPostMutation();
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     e.preventDefault();
-    addPost({ title, body, id: Math.ceil(Math.random() * 999999) })
+    editPost({ title, body, id })
       .unwrap()
       .then(() => {})
       .then((error: any) => {
@@ -69,4 +74,4 @@ const NewPost = () => {
     </form>
   );
 };
-export default NewPost;
+export default EditPost;

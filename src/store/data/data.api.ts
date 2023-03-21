@@ -10,14 +10,14 @@ export const dataApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://blog-api-t6u0.onrender.com/",
   }),
-  tagTypes: ['Post'],
+  tagTypes: ["Post"],
   refetchOnFocus: true,
   endpoints: (build) => ({
     getPosts: build.query<IPost[], "">({
       query: () => ({
         url: `posts`,
       }),
-      providesTags: ['Post'],
+      providesTags: ["Post"],
       transformResponse: (response: IPost[]) => response,
     }),
 
@@ -25,7 +25,7 @@ export const dataApi = createApi({
       query: () => ({
         url: `comments`,
       }),
-      providesTags: ['Post'],
+      providesTags: ["Post"],
       transformResponse: (response: IComment[]) => response,
     }),
 
@@ -36,32 +36,50 @@ export const dataApi = createApi({
           _embed: "comments",
         },
       }),
-      providesTags: ['Post'],
       transformResponse: (response: IPostWithComments) => response,
     }),
 
     addPost: build.mutation<null, IPost>({
       query: (payload) => ({
-        url: '/posts',
-        method: 'POST',
+        url: "/posts",
+        method: "POST",
         body: payload,
         headers: {
-          'Content-type': 'application/json; charset=UTF-8',
+          "Content-type": "application/json; charset=UTF-8",
         },
       }),
-      invalidatesTags: ['Post'],
+      invalidatesTags: ["Post"],
     }),
 
     addComment: build.mutation<null, IComment>({
       query: (payload) => ({
-        url: '/comments',
-        method: 'POST',
+        url: "/comments",
+        method: "POST",
         body: payload,
         headers: {
-          'Content-type': 'application/json; charset=UTF-8',
+          "Content-type": "application/json; charset=UTF-8",
         },
       }),
-      invalidatesTags: ['Post'],
+      invalidatesTags: ["Post"],
+    }),
+
+    deletePost: build.mutation({
+      query: (id) => ({
+        url: `/posts/${id}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
+      invalidatesTags: ["Post"],
+    }),
+
+    editPost: build.mutation<null, IPost>({
+      query: (payload) => ({
+        url: `/posts/${payload.id}`,
+        method: "PUT",
+        body: payload,
+        credentials: "include",
+      }),
+      invalidatesTags: ["Post"],
     }),
   }),
 });
@@ -71,5 +89,7 @@ export const {
   useGetCommentsToPostQuery,
   useGetAllCommentsQuery,
   useAddPostMutation,
-  useAddCommentMutation
+  useAddCommentMutation,
+  useDeletePostMutation,
+  useEditPostMutation,
 } = dataApi;

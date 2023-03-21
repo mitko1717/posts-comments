@@ -1,8 +1,14 @@
+import { useState } from "react";
 import { useActions } from "../hooks/actions";
 import { useGetCommentsToPostQuery } from "../store/data/data.api";
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Link } from "react-router-dom";
+import { useDeletePostMutation } from "../store/data/data.api";
+import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Edit } from "@mui/icons-material";
+import ModalEdit from "./ModalEdit";
 
 interface IPostProps {
   id: number;
@@ -13,6 +19,25 @@ const Post = ({ id }: IPostProps) => {
   const { isLoading, isError, data } = useGetCommentsToPostQuery({
     postId: id,
   });
+  const [deletePost, response] = useDeletePostMutation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const onDelete = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    deletePost(id)
+      .unwrap()
+      .then(() => {})
+      .then((error: any) => {
+        error && console.log(error);
+      });
+  };
+
+  const onEdit = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsModalOpen(true);
+  };
 
   const setOpenedPostHandler = () => {
     setOpeningPostId(id);
@@ -25,8 +50,27 @@ const Post = ({ id }: IPostProps) => {
 
   if (data)
     return (
-      <Link to={`/post/${id}`} onClick={setOpenedPostHandler}>
-        <div className="my-3 shadow-sm bg-slate-400 p-4 flex flex-col rounded">
+      <Link to={`/post/${id}`} onClick={setOpenedPostHandler} className='relative'>
+        {isModalOpen && (
+          <ModalEdit
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+            id={id}
+          />
+        )}
+        <div className="my-3 shadow-sm bg-slate-400 p-4 flex flex-col rounded relative">
+          <div className="absolute top-1 right-1 flex gap-x-2">
+            <Button variant="outlined" startIcon={<Edit />} onClick={onEdit}>
+              Edit
+            </Button>
+            <Button
+              variant="outlined"
+              startIcon={<DeleteIcon />}
+              onClick={onDelete}
+            >
+              Delete
+            </Button>
+          </div>
           <h3 className="font-bold text-xl">{data.title}</h3>
           <p>{data.body}</p>
           <div className="font-bold mt-4">

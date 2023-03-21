@@ -6,34 +6,46 @@ import TextField from "@mui/material/TextField";
 import { useAddCommentMutation } from "../store/data/data.api";
 
 interface INewCommentProps {
-    id: number;
-  }
+  id: number;
+}
 
 const NewComment = ({ id }: INewCommentProps) => {
-  const { } = useAppSelector((state) => state.data);
-  const { } = useActions();
-  const [addComment, response] = useAddCommentMutation()
-  const [name, setName] = useState('')
-  const [body, setBody] = useState('')
-  const [email, setEmail] = useState('')
+  const {} = useAppSelector((state) => state.data);
+  const {} = useActions();
+  const [addComment, response] = useAddCommentMutation();
+  const [name, setName] = useState("");
+  const [body, setBody] = useState("");
+  const [email, setEmail] = useState("");
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    addComment({name, body, email, postId: id, id: Math.random()})
+    e.preventDefault();
+    addComment({
+      name,
+      body,
+      email,
+      postId: id,
+      id: Math.ceil(Math.random() * 999999),
+    });
 
-    setName("")
-    setBody("")
-    setEmail("")
+    setName("");
+    setBody("");
+    setEmail("");
   };
-  const nameHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setName(e.target.value)
-  }
-  const bodyHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setBody(e.target.value)
-  }
-  const emailHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setEmail(e.target.value)
-  }
+  const nameHandler = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setName(e.target.value);
+  };
+  const bodyHandler = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setBody(e.target.value);
+  };
+  const emailHandler = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setEmail(e.target.value);
+  };
 
   return (
     <form className="text-center mb-8" onSubmit={onSubmit}>
@@ -41,40 +53,39 @@ const NewComment = ({ id }: INewCommentProps) => {
 
       <div className="flex justify-center">
         <div className="p-2">
-            <TextField 
-                id="outlined-basic" 
-                label="name" 
-                variant="outlined" 
-                value={name}
-                type="text"
-                onChange={e => nameHandler(e)}
-                required
-            />
+          <TextField
+            id="outlined-basic"
+            label="name"
+            variant="outlined"
+            value={name}
+            type="text"
+            onChange={(e) => nameHandler(e)}
+            required
+          />
         </div>
         <div className="p-2">
-            <TextField 
-                id="outlined-basic" 
-                label="body" 
-                variant="outlined" 
-                value={body}
-                type="text"
-                onChange={e => bodyHandler(e)}
-                required
-            />
+          <TextField
+            id="outlined-basic"
+            label="body"
+            variant="outlined"
+            value={body}
+            type="text"
+            onChange={(e) => bodyHandler(e)}
+            required
+          />
         </div>
         <div className="p-2">
-            <TextField 
-                id="outlined-basic" 
-                label="email" 
-                variant="outlined" 
-                value={email}
-                type="text"
-                onChange={e => emailHandler(e)}
-                required
-            />
+          <TextField
+            id="outlined-basic"
+            label="email"
+            variant="outlined"
+            value={email}
+            type="text"
+            onChange={(e) => emailHandler(e)}
+            required
+          />
         </div>
       </div>
-
 
       <div className="mt-4 ml-2">
         <Button variant="contained" type="submit">

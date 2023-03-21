@@ -21,12 +21,12 @@ const Post = ({ id }: IPostProps) => {
 
   if (data)
     return (
-      <div className="h-full overflow-y-auto">
+      <div className="h-[100vh] overflow-y-auto pb-8">
         <Link to={`/`}>
           <Button variant="contained">back to posts list</Button>
         </Link>
 
-        <NewComment id={id}/>
+        <NewComment id={id} />
 
         <div className="my-3 shadow-sm bg-slate-400 p-4 flex flex-col rounded">
           <h3 className="font-bold text-xl">{data.title}</h3>
