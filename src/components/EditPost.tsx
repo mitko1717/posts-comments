@@ -1,4 +1,10 @@
-import { ChangeEvent, FormEvent, useState, SetStateAction, Dispatch } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  useState,
+  SetStateAction,
+  Dispatch,
+} from "react";
 import Button from "@mui/material/Button/";
 import TextField from "@mui/material/TextField";
 import { useEditPostMutation } from "../store/data/data.api";
@@ -23,7 +29,7 @@ const EditPost = ({ id, setIsModalOpen }: IEditPostProps) => {
       });
     setTitle("");
     setBody("");
-    setIsModalOpen(false)
+    setIsModalOpen(false);
   };
 
   const titleHandler = (

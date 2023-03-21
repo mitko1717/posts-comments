@@ -71,7 +71,11 @@ const Post = ({ id }: IPostProps) => {
               Delete
             </Button>
           </div>
-          <Link to={`/post/${id}`} onClick={setOpenedPostHandler} className='relative mt-4'>
+          <Link
+            to={`/post/${id}`}
+            onClick={setOpenedPostHandler}
+            className="relative mt-4"
+          >
             <h3 className="font-bold text-xl">{data.title}</h3>
             <p>{data.body}</p>
             <div className="font-bold mt-4">

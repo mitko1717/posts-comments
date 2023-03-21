@@ -36,7 +36,7 @@ export const dataApi = createApi({
           _embed: "comments",
         },
       }),
-      providesTags: ["Put"],
+      providesTags: ["Put", "Post"],
       transformResponse: (response: IPostWithComments) => response,
     }),
 
